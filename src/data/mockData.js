@@ -61,12 +61,12 @@ const foodItems = [
 const blogPosts = [
   {
     id: "p1",
-    title: "New Lunch Menu Launching This Week!",
+    title: "P&S Canteen: A Culinary Journey Through Sri Lankan Flavors",
     content:
-      "We're excited to announce our revamped lunch menu at P&S Canteen! Starting Monday, students can enjoy a wider selection of rice & curry options including devilled chicken, fish ambulthiyal, and a fresh vegetable selection.\n\nWe've also introduced a meal combo deal — get a full rice plate with a drink for just Rs. 500.\n\nDon't forget to check our daily specials board at the counter.",
-    excerpt: "Discover our revamped lunch menu with new combo deals and daily specials.",
-    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600",
-    tags: ["Promotions", "Menu Update"],
+      "Located in the heart of SLIIT Malabe's P&S Block, P&S Canteen has been serving authentic Sri Lankan cuisine to students and staff for over a decade. Our commitment to quality ingredients and traditional cooking methods has made us a campus favorite.\n\n**Our Signature Dishes:**\nOur rice & curry platters feature daily-changing curries including devilled chicken, fish ambulthiyal, dhal, and fresh vegetable dishes. Each meal is prepared using family recipes passed down through generations.\n\n**Sustainability Initiatives:**\nWe source 80% of our vegetables from local farms within a 50km radius, reducing our carbon footprint while supporting local agriculture. Our food waste is composted and used in the campus garden.\n\n**Student Favorites:**\n- Chicken Fried Rice (Rs. 450)\n- Vegetable Rice & Curry (Rs. 350)\n- Daily Special Combo (Rs. 500 with drink)\n\n**Operating Hours:**\nMonday - Friday: 7:00 AM - 8:00 PM\nWeekend: 8:00 AM - 6:00 PM\n\nVisit us today and experience the authentic taste of Sri Lankan campus dining!",
+    excerpt: "Discover P&S Canteen's authentic Sri Lankan cuisine, sustainable practices, and student-favorite dishes.",
+    image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600",
+    tags: ["Featured", "Sri Lankan Cuisine", "Sustainability"],
     createdAt: "2024-03-15",
     shopId: "s1",
     shopName: "P&S Canteen",
@@ -74,12 +74,12 @@ const blogPosts = [
   },
   {
     id: "p2",
-    title: "Extended Hours During Exam Period",
+    title: "Annona Canteen: Your Gateway to Quick Bites and Quality Meals",
     content:
-      "Good news for students preparing for exams! Annona Canteen will have extended operating hours this week.\n\nWe understand exam season means long study hours, and we want to make sure you have access to meals and refreshments when you need them most.",
-    excerpt: "Annona Canteen extends hours during exam period for students.",
+      "Strategically positioned near the Annona Building, Annona Canteen serves as the perfect pit stop for students between classes. Our focus on quick service without compromising quality has made us the go-to spot for busy students.\n\n**Our Philosophy:**\nWe believe that good food shouldn't keep you waiting. Our streamlined service ensures you get your meal within 5 minutes of ordering, giving you more time for studies and activities.\n\n**Menu Highlights:**\nOur menu is designed for convenience and variety:\n- Chicken Burger with Fries (Rs. 380)\n- Quick Wrap Combos (Rs. 320)\n- Fresh Sandwiches and Salads\n- Hot and Cold Beverages\n\n**Special Services:**\nDuring exam periods, we extend our hours until 10 PM to support late-night study sessions. We also offer pre-order services for group orders and events.\n\n**Community Impact:**\nWe regularly collaborate with student clubs for events and fundraisers, providing catering services at discounted rates for campus activities.\n\n**Extended Hours:**\nExam Period: 7:00 AM - 10:00 PM\nRegular: 7:00 AM - 7:00 PM\n\nAnnona Canteen - Where quality meets convenience!",
+    excerpt: "Annona Canteen offers quick service, diverse menu options, and extended hours during exam periods.",
     image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600",
-    tags: ["Notices", "Events"],
+    tags: ["Quick Service", "Student Life", "Convenience"],
     createdAt: "2024-03-10",
     shopId: "s2",
     shopName: "Annona Canteen",
@@ -87,12 +87,12 @@ const blogPosts = [
   },
   {
     id: "p3",
-    title: "New Healthy Options Added",
+    title: "New Building Canteen: Leading the Way in Healthy Campus Dining",
     content:
-      "New Building Canteen is introducing more healthy items including salads, smoothie bowls, and fresh fruit.\n\nWe believe sustainable eating should be accessible to everyone on campus.",
-    excerpt: "New Building Canteen launches more healthy options.",
+      "The New Building Canteen represents our commitment to health and wellness in campus dining. As the newest addition to SLIIT's food services, we've designed our entire operation around nutritious, sustainable, and delicious food options.\n\n**Health-First Approach:**\nAll our dishes are nutritionally analyzed and calorie-counted. We work with nutritionists to ensure balanced meals that fuel both body and mind. Our menu features:\n- Fresh Salad Bowls with protein options\n- Quinoa and grain-based dishes\n- Steamed and grilled options\n- Vegan and gluten-free alternatives\n\n**Sustainability Leadership:**\nWe're the first zero-waste canteen on campus. Our initiatives include:\n- Compostable packaging\n- Water-saving dishwashing systems\n- Solar-powered kitchen equipment\n- Partnership with campus recycling program\n\n**Innovation in Dining:**\nOur digital ordering system allows students to pre-order meals, skip queues, and receive notifications when their food is ready. We also offer meal subscription plans for regular customers.\n\n**Signature Offerings:**\n- Veggie Salad Bowl (Rs. 320)\n- Grilled Chicken Platter (Rs. 450)\n- Fresh Fruit Smoothies (Rs. 280)\n- Daily Soup Specials\n\nJoin us in redefining campus dining with health and sustainability at the core!",
+    excerpt: "New Building Canteen leads in healthy dining with nutrition-focused menus and zero-waste initiatives.",
     image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600",
-    tags: ["Menu Update", "Sustainability"],
+    tags: ["Healthy Eating", "Sustainability", "Innovation"],
     createdAt: "2024-03-05",
     shopId: "s3",
     shopName: "New Building Canteen",
@@ -100,12 +100,12 @@ const blogPosts = [
   },
   {
     id: "p4",
-    title: "Fresh Juice Specials",
+    title: "Juice Bar: Refreshing Campus Life One Sip at a Time",
     content:
-      "Juice Bar is adding tropical summer drinks this month. All specials are student-friendly priced and made with real fruit.\n\nCome cool down between lectures!",
-    excerpt: "Cool off with tropical summer drinks at Juice Bar.",
+      "Nestled in the Student Center, the Juice Bar has become the campus hub for fresh, healthy beverages and energizing treats. Our mission is simple: provide students with natural, refreshing options that boost energy and support overall wellness.\n\n**Our Freshness Promise:**\nAll our juices are made to order using 100% fresh fruits and vegetables. We never use concentrates, artificial flavors, or added sugars. Our suppliers deliver fresh produce twice daily, ensuring maximum freshness and nutritional value.\n\n**Popular Creations:**\n- Mango Tango Smoothie (Rs. 220)\n- Green Detox Juice (Rs. 250)\n- Berry Blast Smoothie (Rs. 240)\n- Classic Fresh Orange Juice (Rs. 180)\n- Protein Power Shakes (Rs. 320)\n\n**Seasonal Specials:**\nWe introduce new seasonal drinks every month, featuring local tropical fruits. This month's special is the 'Coconut Paradise' - a blend of fresh coconut water, pineapple, and mango.\n\n**Wellness Focus:**\nOur menu includes functional beverages designed for specific needs:\n- Energy boosters for morning classes\n- Focus enhancers for study sessions\n- Recovery drinks after sports activities\n- Immunity support during exam periods\n\n**Sustainability Efforts:**\nWe use reusable glass bottles and offer discounts for bringing your own container. All fruit pulp is composted for the campus garden.\n\nVisit the Juice Bar for your daily dose of freshness and vitality!",
+    excerpt: "Juice Bar serves 100% fresh juices, smoothies, and wellness drinks made from locally sourced fruits.",
     image: "https://images.unsplash.com/photo-1546173159-315724a31696?w=600",
-    tags: ["Promotions", "Menu Update"],
+    tags: ["Beverages", "Wellness", "Fresh Products"],
     createdAt: "2024-02-15",
     shopId: "s4",
     shopName: "Juice Bar",
@@ -113,12 +113,12 @@ const blogPosts = [
   },
   {
     id: "p5",
-    title: "E-Faculty Combo Deals",
+    title: "E-Faculty Canteen: Engineering Excellence in Campus Dining",
     content:
-      "E-Faculty Canteen is offering new combo deals for students.\n\nCheck the counter board for daily specials and limited-time offers.",
-    excerpt: "E-Faculty Canteen launches new combo deals.",
+      "Serving the E-Faculty community, our canteen embodies the precision and innovation that engineering students value. We've optimized every aspect of our operation to deliver efficient, high-quality dining experiences that match the academic excellence of our faculty.\n\n**Engineering-Inspired Efficiency:**\nOur layout and service flow are designed using principles of industrial engineering, minimizing wait times and maximizing throughput. Average service time: 3.2 minutes.\n\n**Technical Menu Design:**\nOur menu is data-driven, based on student preference analysis and nutritional requirements:\n- Chicken Kottu (Rs. 520) - Most popular item\n- Engineering Special Rice (Rs. 450)\n- Quick Byte Sandwiches (Rs. 280)\n- Power-Up Protein Bowls (Rs. 380)\n\n**Innovation Station:**\nWe feature a monthly 'Innovation Dish' created by student suggestions. This month: 'Circuit Board Platter' - a tech-themed arrangement of various snacks and fruits.\n\n**Study-Friendly Environment:**\nOur seating area includes charging stations, high-speed WiFi, and quiet zones for students who want to study while eating. We also have collaborative tables for group projects.\n\n**Faculty Integration:**\nWe work closely with E-Faculty departments to cater to events, seminars, and student organization meetings. Our catering service is optimized for technical events and conferences.\n\n**Smart Features:**\n- Mobile app ordering with queue management\n- Real-time inventory display\n- Nutritional information QR codes\n- Feedback system for continuous improvement\n\n**Operating Hours:**\nMonday - Friday: 7:30 AM - 7:30 PM\nWeekend: 8:00 AM - 4:00 PM\n\nE-Faculty Canteen - Where precision meets flavor!",
+    excerpt: "E-Faculty Canteen combines engineering efficiency with diverse menu options and study-friendly environment.",
     image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600",
-    tags: ["Promotions", "Events"],
+    tags: ["Engineering", "Innovation", "Efficiency"],
     createdAt: "2024-02-28",
     shopId: "s5",
     shopName: "E-Faculty Canteen",
@@ -126,10 +126,20 @@ const blogPosts = [
   },
 ];
 const comments = [
-  { id: "c1", postId: "p1", userId: "u8", userName: "StudentDev99", content: "Finally some variety in the lunch menu! The combo deal sounds great. \u{1F64C}", createdAt: "2024-03-16", likes: 12, dislikes: 1, isPinned: true },
+  { id: "c1", postId: "p1", userId: "u8", userName: "StudentDev99", content: "Finally some variety in the lunch menu! The combo deal sounds great. 🥳", createdAt: "2024-03-16", likes: 12, dislikes: 1, isPinned: true },
   { id: "c2", postId: "p1", userId: "u9", userName: "CSMajor2025", content: "Will there be any spicy options? Some of us love extra heat!", createdAt: "2024-03-16", likes: 8, dislikes: 2, isPinned: false },
   { id: "c3", postId: "p1", userId: "u10", userName: "HostelLife", content: "Rs. 500 for a full meal with drink is really good value. Thanks!", createdAt: "2024-03-17", likes: 15, dislikes: 0, isPinned: false },
-  { id: "c4", postId: "p2", userId: "u8", userName: "StudentDev99", content: "This is a lifesaver during exams. Late-night study sessions need fuel! \u{1F4DA}", createdAt: "2024-03-11", likes: 20, dislikes: 0, isPinned: false },
+  { id: "c4", postId: "shop-s1", userId: "u11", userName: "FoodLover2025", content: "P&S Canteen has the best rice and curry in campus! The quality is always consistent. 🍛", createdAt: "2024-03-18", likes: 24, dislikes: 3, isPinned: true },
+  { id: "c5", postId: "shop-s1", userId: "u12", userName: "EngineeringStudent", content: "The service is fast and the staff is friendly. Keep up the good work!", createdAt: "2024-03-19", likes: 18, dislikes: 1, isPinned: false },
+  { id: "c6", postId: "shop-s1", userId: "u13", userName: "MBAStudent", content: "Could you add more vegetarian options? The current selection is limited.", createdAt: "2024-03-20", likes: 8, dislikes: 2, isPinned: false },
+  { id: "c7", postId: "shop-s2", userId: "u14", userName: "AnnonaRegular", content: "Great location and convenient for students near the Annona building. Prices are reasonable too.", createdAt: "2024-03-18", likes: 15, dislikes: 1, isPinned: true },
+  { id: "c8", postId: "shop-s2", userId: "u15", userName: "QuickBite", content: "Love the short eats concept! Perfect for between classes. 🥪", createdAt: "2024-03-19", likes: 12, dislikes: 0, isPinned: false },
+  { id: "c9", postId: "shop-s3", userId: "u16", userName: "NewBuildingStudent", content: "When will this canteen reopen? The food here used to be really good.", createdAt: "2024-03-21", likes: 6, dislikes: 1, isPinned: true },
+  { id: "c10", postId: "shop-s4", userId: "u17", userName: "JuiceLover", content: "Fresh juices are amazing! The mango smoothie is my favorite. 🥤", createdAt: "2024-03-22", likes: 20, dislikes: 0, isPinned: true },
+  { id: "c11", postId: "shop-s5", userId: "u18", userName: "EFacultyStudent", content: "Good portions and fair prices. The faculty needed this!", createdAt: "2024-03-20", likes: 14, dislikes: 2, isPinned: false },
+  { id: "c4", postId: "p2", userId: "u8", userName: "StudentDev99", content: "This is a lifesaver during exams. Late-night study sessions need fuel! 📚", createdAt: "2024-03-11", likes: 20, dislikes: 0, isPinned: false },
+  { id: "c12", postId: "p2", userId: "u19", userName: "ExamWarrior", content: "Thank you so much for extending hours! This really helps with late night studying.", createdAt: "2024-03-11", likes: 15, dislikes: 1, isPinned: true },
+  { id: "c13", postId: "p2", userId: "u20", userName: "NightOwl", content: "Will the extended hours continue throughout the entire exam period?", createdAt: "2024-03-12", likes: 8, dislikes: 0, isPinned: false },
   { id: "c5", postId: "p3", userId: "u10", userName: "HostelLife", content: "Love the vegan options! Can you also add gluten-free choices?", createdAt: "2024-03-06", likes: 10, dislikes: 1, isPinned: true },
   { id: "c6", postId: "p1", userId: "u11", userName: "FreshmanFoodie", content: "@CSMajor2025 Yes! The devilled chicken is pretty spicy from what I heard.", createdAt: "2024-03-17", likes: 3, dislikes: 0, isPinned: false, parentId: "c2" }
 ];

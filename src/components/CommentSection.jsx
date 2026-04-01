@@ -226,6 +226,11 @@ const CommentSection = ({ postId }) => {
   const persistComments = (next) => {
     setComments(next);
     storage.set(STORAGE_KEYS.COMMENTS, next);
+    
+    // Dispatch event to notify admin dashboard of new comment
+    window.dispatchEvent(new CustomEvent('newComment', {
+      detail: { postId, comments: next }
+    }));
   };
 
   const persistReactions = (next) => {

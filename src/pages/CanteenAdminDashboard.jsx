@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { shops } from '@/data/mockData';
+import { shops as seedShops } from "@/data/mockData";
 import { storage, STORAGE_KEYS } from '@/lib/storage';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,8 +18,10 @@ import {
   X,
   AlertCircle,
   LogOut,
-  Menu
+  Menu,
+  FileText
 } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
 
 const CanteenAdminDashboard = () => {
@@ -46,7 +48,7 @@ const CanteenAdminDashboard = () => {
     }
   }, [navigate]);
 
-  const [canteens, setCanteens] = useState(() => storage.get(STORAGE_KEYS.SHOPS, shops));
+  const [canteens, setCanteens] = useState(() => storage.get(STORAGE_KEYS.SHOPS, seedShops));
   const [showAddForm, setShowAddForm] = useState(true); // Always show add form by default
   const [formData, setFormData] = useState({
     name: '',
@@ -72,6 +74,40 @@ const CanteenAdminDashboard = () => {
     storage.set(STORAGE_KEYS.SHOPS, updatedCanteens);
   };
 
+  const handleToggleCanteenStatus = (canteenId) => {
+    console.log('Toggling canteen status for:', canteenId);
+    const updatedCanteens = canteens.map(canteen => {
+      if (canteen.id === canteenId) {
+        const newStatus = canteen.status === 'open' ? 'closed' : 'open';
+        console.log(`Changing ${canteen.name} status from ${canteen.status} to ${newStatus}`);
+        return { ...canteen, status: newStatus };
+      }
+      return canteen;
+    });
+    console.log('Updated canteens:', updatedCanteens);
+    persistCanteens(updatedCanteens);
+    
+    // Force update all components by dispatching a custom event
+    window.dispatchEvent(new CustomEvent('canteenStatusChanged', {
+      detail: {
+        canteenId,
+        newStatus: updatedCanteens.find(c => c.id === canteenId)?.status,
+        allCanteens: updatedCanteens
+      }
+    }));
+    
+    // Also trigger localStorage change event
+    window.dispatchEvent(new StorageEvent('storage', {
+      key: 'sliit_eats_shops_v1',
+      newValue: JSON.stringify(updatedCanteens)
+    }));
+    
+    const updatedCanteen = updatedCanteens.find(c => c.id === canteenId);
+    if (updatedCanteen) {
+      toast.success(`Canteen "${updatedCanteen.name}" is now ${updatedCanteen.status}`);
+    }
+  };
+
   const validateForm = () => {
     const errors = {};
     
@@ -93,8 +129,8 @@ const CanteenAdminDashboard = () => {
     
     if (!formData.phone.trim()) {
       errors.phone = 'Phone number is required';
-    } else if (!/^[0-9+\-\s()]+$/.test(formData.phone)) {
-      errors.phone = 'Please enter a valid phone number';
+    } else if (!/^07\d{8}$/.test(formData.phone.replace(/\s/g, ''))) {
+      errors.phone = 'Phone number must be 10 digits starting with 07 (e.g., 0712345678)';
     }
     
     if (!formData.operatingHours.open || !formData.operatingHours.close) {
@@ -115,20 +151,24 @@ const CanteenAdminDashboard = () => {
     // Admin credentials validation
     if (!formData.adminName.trim()) {
       errors.adminName = 'Admin name is required';
+    } else if (!/^[a-zA-Z\s]+$/.test(formData.adminName.trim())) {
+      errors.adminName = 'Admin name can only contain letters and spaces';
     } else if (formData.adminName.trim().length < 2) {
       errors.adminName = 'Admin name must be at least 2 characters';
     }
     
     if (!formData.adminEmail.trim()) {
       errors.adminEmail = 'Admin email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.adminEmail)) {
-      errors.adminEmail = 'Please enter a valid email address';
+    } else if (!/^[^\s@]+@sliit\.lk$/.test(formData.adminEmail.trim().toLowerCase())) {
+      errors.adminEmail = 'Email must end with @sliit.lk';
     }
     
     if (!formData.adminPassword.trim()) {
       errors.adminPassword = 'Admin password is required';
-    } else if (formData.adminPassword.length < 6) {
-      errors.adminPassword = 'Password must be at least 6 characters';
+    } else if (formData.adminPassword.length < 8) {
+      errors.adminPassword = 'Password must be exactly 8 characters';
+    } else if (formData.adminPassword.length > 8) {
+      errors.adminPassword = 'Password must be exactly 8 characters';
     }
     
     setFormErrors(errors);
@@ -243,6 +283,14 @@ const CanteenAdminDashboard = () => {
               <Button 
                 variant="outline" 
                 size="sm" 
+                onClick={() => navigate('/article-management')}
+              >
+                <FileText className="mr-2 h-4 w-4" />
+                Article Management
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm" 
                 onClick={() => setShowAddForm(!showAddForm)}
               >
                 {showAddForm ? 'View Canteens' : 'Add Canteen'}
@@ -352,8 +400,9 @@ const CanteenAdminDashboard = () => {
                     <Input
                       value={formData.phone}
                       onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                      placeholder="e.g., +94 11 234 5678"
+                      placeholder="e.g., 0712345678"
                       className={formErrors.phone ? 'border-destructive' : ''}
+                      maxLength={10}
                     />
                     {formErrors.phone && (
                       <p className="text-xs text-destructive flex items-center gap-1">
@@ -468,7 +517,7 @@ const CanteenAdminDashboard = () => {
                       <Input
                         value={formData.adminEmail}
                         onChange={(e) => setFormData(prev => ({ ...prev, adminEmail: e.target.value }))}
-                        placeholder="admin@canteen.com"
+                        placeholder="admin@sliit.lk"
                         type="email"
                         className={formErrors.adminEmail ? 'border-destructive' : ''}
                       />
@@ -485,7 +534,7 @@ const CanteenAdminDashboard = () => {
                       <Input
                         value={formData.adminPassword}
                         onChange={(e) => setFormData(prev => ({ ...prev, adminPassword: e.target.value }))}
-                        placeholder="••••••••"
+                        placeholder="•••••••• (8 characters)"
                         type="password"
                         className={formErrors.adminPassword ? 'border-destructive' : ''}
                       />
@@ -503,6 +552,17 @@ const CanteenAdminDashboard = () => {
                       <strong>Important:</strong> These credentials will be used by the canteen admin to log into their dashboard. 
                       Please save this information securely and share it with the canteen administrator.
                     </p>
+                  </div>
+                  
+                  <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
+                    <h5 className="text-xs font-semibold text-orange-800 mb-2">Validation Requirements:</h5>
+                    <ul className="text-xs text-orange-700 space-y-1">
+                      <li>• <strong>Phone:</strong> Must be 10 digits starting with 07 (e.g., 0712345678)</li>
+                      <li>• <strong>Admin Name:</strong> Only letters and spaces allowed</li>
+                      <li>• <strong>Email:</strong> Must end with @sliit.lk</li>
+                      <li>• <strong>Password:</strong> Must be exactly 8 characters</li>
+                      <li>• <strong>All fields are required</strong></li>
+                    </ul>
                   </div>
                 </div>
 
@@ -634,12 +694,12 @@ const CanteenAdminDashboard = () => {
                         </div>
 
                         <div className="mt-4 pt-4 border-t">
-                          <div className="flex items-center justify-between text-xs text-muted-foreground">
-                            <span>Added: {new Date(canteen.createdAt).toLocaleDateString()}</span>
-                            <div className="flex items-center gap-1">
-                              <div className={`w-2 h-2 rounded-full ${canteen.status === 'open' ? 'bg-green-500' : 'bg-gray-400'}`}></div>
-                              <span>{canteen.status === 'open' ? 'Active' : 'Inactive'}</span>
-                            </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-muted-foreground">Status</span>
+                            <Switch 
+                              checked={canteen.status === 'open'} 
+                              onCheckedChange={() => handleToggleCanteenStatus(canteen.id)}
+                            />
                           </div>
                         </div>
                       </CardContent>

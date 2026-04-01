@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { blogPosts as seedPosts, comments as seedComments, shops } from "@/data/mockData";
@@ -37,11 +37,45 @@ const CommentManagement = () => {
   const [comments, setComments] = useState(() => {
     const allComments = storage.get(STORAGE_KEYS.COMMENTS, seedComments);
     const shopPostIds = posts.map(p => p.id);
-    return allComments.filter(c => shopPostIds.includes(c.postId));
+    const shopCommentId = `shop-${user.shopId}`;
+    
+    // Filter comments for both blog posts and shop-specific comments
+    return allComments.filter(c => 
+      shopPostIds.includes(c.postId) || c.postId === shopCommentId
+    );
   });
 
   const [editingComment, setEditingComment] = useState(null);
   const [editContent, setEditContent] = useState("");
+
+  // Listen for new comments in real-time
+  useEffect(() => {
+    const handleCommentUpdate = () => {
+      const allComments = storage.get(STORAGE_KEYS.COMMENTS, seedComments);
+      const shopPostIds = posts.map(p => p.id);
+      const shopCommentId = `shop-${user.shopId}`;
+      
+      const filteredComments = allComments.filter(c => 
+        shopPostIds.includes(c.postId) || c.postId === shopCommentId
+      );
+      setComments(filteredComments);
+    };
+
+    // Listen for custom comment events
+    const handleNewComment = (event) => {
+      console.log('New comment event received:', event.detail);
+      handleCommentUpdate();
+    };
+
+    // Listen for storage changes
+    window.addEventListener('storage', handleCommentUpdate);
+    window.addEventListener('newComment', handleNewComment);
+
+    return () => {
+      window.removeEventListener('storage', handleCommentUpdate);
+      window.removeEventListener('newComment', handleNewComment);
+    };
+  }, [user.shopId, posts]);
 
   const persistComments = (next) => {
     setComments(next);
@@ -78,6 +112,9 @@ const CommentManagement = () => {
   };
 
   const getPostTitle = (postId) => {
+    if (postId === `shop-${user.shopId}`) {
+      return `${shop?.name} - Shop Comments`;
+    }
     const post = posts.find(p => p.id === postId);
     return post?.title || "Unknown Post";
   };

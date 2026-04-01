@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { offers as seedOffers, shops } from "@/data/mockData";
+import { useMemo, useState, useEffect } from "react";
+import { offers as seedOffers, shops as seedShops } from "@/data/mockData";
 import ShopCard from "@/components/ShopCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,50 @@ const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [offersOnly, setOffersOnly] = useState(false);
   const [offers] = useState(() => storage.get(STORAGE_KEYS.OFFERS, seedOffers));
+  const [shops, setShops] = useState(() => storage.get(STORAGE_KEYS.SHOPS, seedShops));
+
+  // Listen for storage changes to update shops in real-time
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const newShops = storage.get(STORAGE_KEYS.SHOPS, seedShops);
+      console.log('Storage change detected, new shops:', newShops);
+      setShops(newShops);
+    };
+
+    // Listen for custom storage events from same tab
+    const handleCustomStorageUpdate = (event) => {
+      console.log('Custom storage update received:', event.detail);
+      if (event.detail.key === STORAGE_KEYS.SHOPS) {
+        console.log('Updating shops from custom event:', event.detail.value);
+        setShops(event.detail.value);
+      }
+    };
+
+    // Listen for canteen status changes specifically
+    const handleCanteenStatusChanged = (event) => {
+      console.log('Canteen status changed event received:', event.detail);
+      const { allCanteens } = event.detail;
+      if (allCanteens) {
+        console.log('Updating shops from canteen status change:', allCanteens);
+        setShops(allCanteens);
+      }
+    };
+
+    // Listen for storage events from other tabs
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Listen for custom storage events from same tab
+    window.addEventListener('storageUpdate', handleCustomStorageUpdate);
+    
+    // Listen for canteen status changes
+    window.addEventListener('canteenStatusChanged', handleCanteenStatusChanged);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('storageUpdate', handleCustomStorageUpdate);
+      window.removeEventListener('canteenStatusChanged', handleCanteenStatusChanged);
+    };
+  }, []);
 
   const normalizedQuery = searchQuery.trim().toLowerCase();
 
@@ -66,20 +110,37 @@ const Index = () => {
             />
           </div>
           <div className="mt-3 flex items-center justify-center gap-2 text-sm">
-            <button
-              type="button"
-              onClick={() => setFilter(filter === "all" ? "open" : "all")}
-              className="rounded-full border px-4 py-2 bg-primary text-primary-foreground font-medium transition-colors hover:bg-primary/90"
+            <Button
+              variant={filter === "all" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setFilter("all")}
+              className="rounded-full"
             >
-              {filter === "all" ? "View Open Canteens" : "View All Canteens"}
-            </button>
+              All Canteens
+            </Button>
+            <Button
+              variant={filter === "open" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setFilter("open")}
+              className="rounded-full"
+            >
+              Open Canteens
+            </Button>
+            <Button
+              variant={filter === "closed" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setFilter("closed")}
+              className="rounded-full"
+            >
+              Closed Canteens
+            </Button>
           </div>
         </div>
 
         <div className="mb-8 flex items-center justify-center gap-4">
           <h2 className="flex items-center gap-2 font-display text-2xl font-bold">
             <UtensilsCrossed className="h-6 w-6 text-primary" />
-            {filter === "all" ? "All Canteens" : "Open Canteens"}
+            {filter === "all" ? "All Canteens" : filter === "open" ? "Open Canteens" : "Closed Canteens"}
           </h2>
         </div>
 

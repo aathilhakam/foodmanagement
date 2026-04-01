@@ -14,6 +14,15 @@ export const storage = {
   set(key, value) {
     if (typeof window === "undefined") return;
     window.localStorage.setItem(key, JSON.stringify(value));
+    
+    // Dispatch custom event for same-tab updates
+    try {
+      window.dispatchEvent(new CustomEvent('storageUpdate', { 
+        detail: { key, value } 
+      }));
+    } catch (error) {
+      console.warn('Failed to dispatch storage update event:', error);
+    }
   },
 };
 

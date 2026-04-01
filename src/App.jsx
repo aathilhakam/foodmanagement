@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 import ShopAdminDashboard from "./pages/ShopAdminDashboard";
 import PostManagement from "./pages/PostManagement";
 import CommentManagement from "./pages/CommentManagement";
+import ArticleManagement from "./pages/ArticleManagement";
 import SuperAdminDashboard from "./pages/SuperAdminDashboard";
 import AdminCanteenManagement from "./pages/AdminCanteenManagement";
 import CanteenAdminLogin from "./pages/CanteenAdminLogin";
@@ -39,6 +40,7 @@ const App = () => /* @__PURE__ */ jsx(QueryClientProvider, { client: queryClient
       /* @__PURE__ */ jsx(Route, { path: "/dashboard", element: /* @__PURE__ */ jsx(ShopAdminDashboard, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/dashboard/posts", element: /* @__PURE__ */ jsx(PostManagement, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/dashboard/comments", element: /* @__PURE__ */ jsx(CommentManagement, {}) }),
+      /* @__PURE__ */ jsx(Route, { path: "/article-management", element: /* @__PURE__ */ jsx(ArticleManagement, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/admin", element: /* @__PURE__ */ jsx(SuperAdminDashboard, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/admin/canteens", element: /* @__PURE__ */ jsx(AdminCanteenManagement, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/canteen-admin/login", element: /* @__PURE__ */ jsx(CanteenAdminLogin, {}) }),

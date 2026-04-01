@@ -95,7 +95,7 @@ const ShopAdminDashboard = () => {
   };
 
   const handleNavigateToComments = () => {
-    navigate("/dashboard/comments");
+    navigate("/article-management");
   };
 
   return (
@@ -105,7 +105,7 @@ const ShopAdminDashboard = () => {
           <LayoutDashboard className="h-6 w-6 text-primary" />
           Canteen Dashboard <span className="text-primary">•</span> {shop?.name}
         </h1>
-        <p className="mt-1 text-muted-foreground">Manage your canteen, posts, comments, and offers.</p>
+        <p className="mt-1 text-muted-foreground">Manage your canteen, posts, articles, and offers.</p>
       </div>
 
       <div className="mb-8 grid gap-4 sm:grid-cols-3">
@@ -156,23 +156,23 @@ const ShopAdminDashboard = () => {
           </CardContent>
         </Card>
 
-        {/* Comments Card - Clickable */}
+        {/* Articles Card - Clickable */}
         <Card 
           className="cursor-pointer transition-all hover:shadow-md hover:border-primary/30"
           onClick={handleNavigateToComments}
         >
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-base">
-              <MessageCircle className="h-5 w-5 text-primary" />
-              Comments
+              <FileText className="h-5 w-5 text-primary" />
+              Articles
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between">
-              <span className="text-2xl font-bold text-primary">{postComments.length}</span>
+              <span className="text-2xl font-bold text-primary">{posts.length}</span>
               <Eye className="h-4 w-4 text-muted-foreground" />
             </div>
-            <p className="mt-2 text-xs text-muted-foreground">Click to manage comments</p>
+            <p className="mt-2 text-xs text-muted-foreground">Click to manage articles</p>
           </CardContent>
         </Card>
       </div>

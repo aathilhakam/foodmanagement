@@ -23,6 +23,7 @@ import {
   AlertCircle,
   CheckCircle
 } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
 
 const AdminCanteenManagement = () => {
@@ -58,6 +59,37 @@ const AdminCanteenManagement = () => {
   const persistCanteens = (updatedCanteens) => {
     setCanteens(updatedCanteens);
     storage.set(STORAGE_KEYS.SHOPS, updatedCanteens);
+  };
+
+  const handleToggleCanteenStatus = (canteenId) => {
+    const updatedCanteens = canteens.map(canteen => {
+      if (canteen.id === canteenId) {
+        const newStatus = canteen.status === 'open' ? 'closed' : 'open';
+        return { ...canteen, status: newStatus };
+      }
+      return canteen;
+    });
+    persistCanteens(updatedCanteens);
+    
+    // Force update all components by dispatching a custom event
+    window.dispatchEvent(new CustomEvent('canteenStatusChanged', {
+      detail: {
+        canteenId,
+        newStatus: updatedCanteens.find(c => c.id === canteenId)?.status,
+        allCanteens: updatedCanteens
+      }
+    }));
+    
+    // Also trigger localStorage change event
+    window.dispatchEvent(new StorageEvent('storage', {
+      key: 'sliit_eats_shops_v1',
+      newValue: JSON.stringify(updatedCanteens)
+    }));
+    
+    const updatedCanteen = updatedCanteens.find(c => c.id === canteenId);
+    if (updatedCanteen) {
+      toast.success(`Canteen "${updatedCanteen.name}" is now ${updatedCanteen.status}`);
+    }
   };
 
   const validateForm = () => {
@@ -546,6 +578,13 @@ const AdminCanteenManagement = () => {
                       </div>
                       
                       <div className="flex items-center gap-2 ml-4">
+                        <div className="flex items-center gap-2">
+                          <span className="text-muted-foreground">Status</span>
+                          <Switch 
+                            checked={canteen.status === 'open'} 
+                            onCheckedChange={() => handleToggleCanteenStatus(canteen.id)}
+                          />
+                        </div>
                         <Button
                           variant="outline"
                           size="sm"
